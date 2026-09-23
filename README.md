@@ -1,6 +1,6 @@
-# Music Atlas
+# Spotified
 
-Music Atlas is a private, read-only Next.js companion for a Spotify account. It presents Spotify-supplied affinity rankings, recently played tracks, saved tracks, playlists, permitted playlist contents, and manual catalog search in an independent interface.
+Spotified is a private, read-only Next.js companion for a Spotify account. It presents Spotify-supplied affinity rankings, recently played tracks, saved tracks, playlists, permitted playlist contents, and manual catalog search in an independent interface.
 
 It deliberately does **not** calculate listening time, play counts, top genres, discovery rates, taste profiles, or personalized recommendations from Spotify data. Spotify's current Developer Policy restricts derived listening analytics and user profiling, and several older recommendation/audio endpoints are unavailable to new applications.
 
@@ -144,7 +144,7 @@ Vercel Hobby is for personal, non-commercial use. Supabase Free currently pauses
 
 ## Provider and UI constraints
 
-- The user-facing product name is **Music Atlas**, not `Spotified`.
+- The user-facing product name is **Spotified**.
 - Spotify artwork is shown without cropping, overlays, distortion, or animation.
 - Spotify metadata links back to the relevant Spotify page and includes source attribution.
 - Playlist contents are available only for playlists the account owns or collaborates on; a followed playlist can appear in Collections while its items remain unavailable.

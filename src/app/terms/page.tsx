@@ -14,11 +14,11 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="End-user terms"
-      description="The rules for using this private beta and the provider-specific limits that Music Atlas must respect."
+      description="The rules for using this private beta and the provider-specific limits that Spotified must respect."
     >
       <LegalSection title="Private beta">
         <p>
-          Music Atlas is an independent, read-only personal project for Spotify accounts approved on
+          Spotified is an independent, read-only personal project for Spotify accounts approved on
           the app owner’s Development Mode allowlist. It is not endorsed, sponsored, or operated by
           Spotify. Do not use it for commercial, business, or unlawful purposes.
         </p>
@@ -28,7 +28,7 @@ export default function TermsPage() {
         <p>
           Your Spotify use remains subject to Spotify’s terms. You must not copy, download, scrape,
           alter, redistribute, or create derivative works from the Spotify Platform, Spotify
-          Service, or Spotify Content through Music Atlas. You must not decompile, reverse-engineer,
+          Service, or Spotify Content through Spotified. You must not decompile, reverse-engineer,
           disassemble, or otherwise reduce those services or content to source code or another
           human-perceivable form except where applicable law expressly prevents that restriction.
         </p>
@@ -36,7 +36,7 @@ export default function TermsPage() {
 
       <LegalSection title="What the app does">
         <p>
-          Music Atlas displays limited account information returned by Spotify. Spotify-provided top
+          Spotified displays limited account information returned by Spotify. Spotify-provided top
           items are affinity rankings, not play counts. Recently played records are not a complete
           listening history. The app does not promise listening-time analytics, a taste profile,
           recommendations, continuous availability, or permanent access to any endpoint.
@@ -45,19 +45,19 @@ export default function TermsPage() {
 
       <LegalSection title="No warranties from Spotify">
         <p>
-          Music Atlas makes no warranty or representation on behalf of Spotify. To the fullest
-          extent permitted by law, all implied warranties regarding the Spotify Platform, Spotify
-          Service, and Spotify Content—including merchantability, fitness for a particular purpose,
-          and non-infringement—are disclaimed.
+          Spotified makes no warranty or representation on behalf of Spotify. To the fullest extent
+          permitted by law, all implied warranties regarding the Spotify Platform, Spotify Service,
+          and Spotify Content—including merchantability, fitness for a particular purpose, and
+          non-infringement—are disclaimed.
         </p>
       </LegalSection>
 
       <LegalSection title="Responsibility and liability">
         <p>
-          The Music Atlas project owner, not Spotify, is responsible for this application. Spotify
-          and other third parties are not liable for Music Atlas, its operation, or its handling of
-          data. The private beta is provided as-is and may be changed, suspended, or discontinued
-          when provider policies, quotas, or infrastructure require it.
+          The Spotified project owner, not Spotify, is responsible for this application. Spotify and
+          other third parties are not liable for Spotified, its operation, or its handling of data.
+          The private beta is provided as-is and may be changed, suspended, or discontinued when
+          provider policies, quotas, or infrastructure require it.
         </p>
       </LegalSection>
 

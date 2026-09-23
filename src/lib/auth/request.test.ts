@@ -5,13 +5,13 @@ import { AssertSameOrigin, InvalidRequestOriginError } from "@/lib/auth/request"
 
 describe("same-origin request protection", () => {
   beforeEach(() => {
-    process.env.APP_BASE_URL = "https://music-atlas.example";
+    process.env.APP_BASE_URL = "https://spotified.example";
   });
 
   it("accepts the configured application origin", () => {
-    const request = new NextRequest("https://music-atlas.example/api/auth/logout", {
+    const request = new NextRequest("https://spotified.example/api/auth/logout", {
       method: "POST",
-      headers: { origin: "https://music-atlas.example" },
+      headers: { origin: "https://spotified.example" },
     });
 
     expect(() => AssertSameOrigin(request)).not.toThrow();
@@ -27,10 +27,10 @@ describe("same-origin request protection", () => {
   });
 
   it("rejects missing and malformed origins", () => {
-    const missingOrigin = new NextRequest("https://music-atlas.example/api/auth/logout", {
+    const missingOrigin = new NextRequest("https://spotified.example/api/auth/logout", {
       method: "POST",
     });
-    const malformedOrigin = new NextRequest("https://music-atlas.example/api/auth/logout", {
+    const malformedOrigin = new NextRequest("https://spotified.example/api/auth/logout", {
       method: "POST",
       headers: { origin: "not a URL" },
     });

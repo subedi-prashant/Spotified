@@ -115,7 +115,7 @@ export default async function SettingsPage({
           <CardHeader>
             <CardTitle>Permission boundary</CardTitle>
             <CardDescription>
-              Music Atlas requests only the five read scopes used by its views.
+              Spotified requests only the five read scopes used by its views.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

@@ -25,7 +25,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-svh">
       <header className="sticky top-0 z-40 border-b border-white/[0.055] bg-background/78 backdrop-blur-2xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/snapshot" aria-label="Music Atlas snapshot">
+          <Link href="/snapshot" aria-label="Spotified snapshot">
             <BrandMark />
           </Link>
           <nav

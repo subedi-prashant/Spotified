@@ -100,7 +100,7 @@ function ExploreHeader({ query }: { query: string }) {
       <PageHeader
         eyebrow="Manual catalog search"
         title="Explore without an algorithm"
-        description="Search directly. Music Atlas does not calculate a taste match or imply that you have never heard a result."
+        description="Search directly. Spotified does not calculate a taste match or imply that you have never heard a result."
         action={<SpotifyAttribution />}
       />
       <form className="flex max-w-2xl gap-2" role="search">

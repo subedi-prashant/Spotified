@@ -15,7 +15,7 @@ export function BrandMark({
         <AudioLines className="size-5" strokeWidth={2.3} aria-hidden="true" />
       </span>
       {!compact ? (
-        <span className="text-sm font-bold tracking-[-0.02em] text-foreground">Music Atlas</span>
+        <span className="text-sm font-bold tracking-[-0.02em] text-foreground">Spotified</span>
       ) : null}
     </span>
   );

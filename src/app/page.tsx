@@ -108,7 +108,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
                 A quieter view of your music.
               </h1>
               <p className="max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-                Music Atlas brings your Spotify rankings, recent plays, saved tracks, and playlists
+                Spotified brings your Spotify rankings, recent plays, saved tracks, and playlists
                 into one focused private space—without pretending they are metrics Spotify does not
                 provide.
               </p>
@@ -206,7 +206,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
         </section>
 
         <footer className="flex flex-col gap-3 border-t border-border/70 py-7 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>Music Atlas is an independent personal project and is not endorsed by Spotify.</p>
+          <p>Spotified is an independent personal project and is not endorsed by Spotify.</p>
           <nav className="flex gap-4" aria-label="Legal">
             <Link href="/privacy" className="hover:text-foreground">
               Privacy

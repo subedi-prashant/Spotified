@@ -9,7 +9,7 @@ import {
 const ALGORITHM = "aes-256-gcm";
 const IV_LENGTH = 12;
 const TOKEN_VERSION = "v1";
-const TOKEN_CONTEXT = Buffer.from("music-atlas.spotify-token.v1", "utf8");
+const TOKEN_CONTEXT = Buffer.from("spotified.spotify-token.v1", "utf8");
 
 function DecodeKey(encodedKey: string): Buffer {
   const key = Buffer.from(encodedKey, "base64url");

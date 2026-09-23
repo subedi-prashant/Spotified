@@ -9,7 +9,7 @@ import { GetDatabase } from "@/db/client";
 import { Sessions } from "@/db/schema";
 import { GenerateOpaqueToken, HashOpaqueToken } from "@/lib/auth/crypto";
 
-export const SESSION_COOKIE = "music_atlas_session";
+export const SESSION_COOKIE = "spotified_session";
 const SESSION_DURATION_DAYS = 30;
 
 export type CurrentSession = {

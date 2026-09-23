@@ -2,7 +2,7 @@
 
 ## Product boundary
 
-Music Atlas is a read-only Spotify utility. Do not add app-generated listening analytics, taste profiles, recommendation scoring, audio-feature integrations, playlist writes, Last.fm data, or YouTube Music migration without a new provider-policy review.
+Spotified is a read-only Spotify utility. Do not add app-generated listening analytics, taste profiles, recommendation scoring, audio-feature integrations, playlist writes, Last.fm data, or YouTube Music migration without a new provider-policy review.
 
 ## Commands
 

@@ -5,11 +5,11 @@ import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Music Atlas",
-    template: "%s · Music Atlas",
+    default: "Spotified",
+    template: "%s · Spotified",
   },
   description: "A focused, private view of the music already connected to your Spotify account.",
-  applicationName: "Music Atlas",
+  applicationName: "Spotified",
   robots: {
     index: false,
     follow: false,

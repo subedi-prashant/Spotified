@@ -19,7 +19,7 @@ export default async function PrivacyPage({
   return (
     <LegalPage
       title="Privacy notice"
-      description="What Music Atlas receives, what it stores, why it needs that data, and how to remove it."
+      description="What Spotified receives, what it stores, why it needs that data, and how to remove it."
     >
       {parameters.notice === "consent_required" ? (
         <div
@@ -32,8 +32,8 @@ export default async function PrivacyPage({
 
       <LegalSection title="Who controls the data">
         <p>
-          Music Atlas is a private, non-commercial side project. The project owner who invited you
-          to the Spotify Development Mode allowlist operates this deployment and controls the data
+          Spotified is a private, non-commercial side project. The project owner who invited you to
+          the Spotify Development Mode allowlist operates this deployment and controls the data
           described here.
         </p>
       </LegalSection>
@@ -50,9 +50,9 @@ export default async function PrivacyPage({
           </li>
         </ul>
         <p>
-          Music Atlas fetches profile details, affinity-ranked top artists and tracks, recently
-          played tracks, saved tracks, playlist metadata, permitted playlist items, and manual
-          search results when needed to render a private page. It does not build a permanent Spotify
+          Spotified fetches profile details, affinity-ranked top artists and tracks, recently played
+          tracks, saved tracks, playlist metadata, permitted playlist items, and manual search
+          results when needed to render a private page. It does not build a permanent Spotify
           listening-history or catalog database from those responses.
         </p>
       </LegalSection>
@@ -60,7 +60,7 @@ export default async function PrivacyPage({
       <LegalSection title="How data is used">
         <p>
           The data is used only to authenticate you, refresh the Spotify connection, and display the
-          read-only views you request. Music Atlas does not sell data, use it for advertising, email
+          read-only views you request. Spotified does not sell data, use it for advertising, email
           Spotify users, train AI models, or calculate an app-generated taste profile.
         </p>
       </LegalSection>
@@ -76,10 +76,10 @@ export default async function PrivacyPage({
 
       <LegalSection title="Cookies and similar storage">
         <p>
-          Music Atlas uses two strictly necessary, HTTP-only cookies: a short-lived OAuth state
-          cookie that protects the connection callback, and an expiring session cookie that keeps
-          this browser signed in. No advertising or product-analytics cookies are configured by this
-          application. Spotify may use its own cookies when you leave Music Atlas for Spotify’s
+          Spotified uses two strictly necessary, HTTP-only cookies: a short-lived OAuth state cookie
+          that protects the connection callback, and an expiring session cookie that keeps this
+          browser signed in. No advertising or product-analytics cookies are configured by this
+          application. Spotify may use its own cookies when you leave Spotified for Spotify’s
           authorization pages.
         </p>
       </LegalSection>

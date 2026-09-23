@@ -17,7 +17,7 @@ export function LegalPage({
     <main className="min-h-svh px-5 py-8 sm:px-8 sm:py-12">
       <div className="mx-auto max-w-3xl">
         <header className="flex items-center justify-between border-b border-border pb-7">
-          <Link href="/" aria-label="Music Atlas home">
+          <Link href="/" aria-label="Spotified home">
             <BrandMark />
           </Link>
           <Link

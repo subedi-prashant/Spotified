@@ -27,7 +27,7 @@ export default async function RecentPage() {
         <PageHeader
           eyebrow="Spotify playback history"
           title="Recently played"
-          description="Music Atlas only displays complete, validated responses from Spotify."
+          description="Spotified only displays complete, validated responses from Spotify."
         />
         <ProviderError error={result.error} />
       </div>

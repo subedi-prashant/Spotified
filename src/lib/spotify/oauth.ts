@@ -5,7 +5,7 @@ import { GetSpotifyCredentials } from "@/lib/env";
 const AUTHORIZE_URL = "https://accounts.spotify.com/authorize";
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
 
-export const SPOTIFY_STATE_COOKIE = "music_atlas_spotify_state";
+export const SPOTIFY_STATE_COOKIE = "spotified_spotify_state";
 export const SPOTIFY_SCOPES = [
   "playlist-read-collaborative",
   "playlist-read-private",
