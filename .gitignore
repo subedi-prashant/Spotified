@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+coverage/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+*.tsbuildinfo
+.vercel/
+.playwright-mcp/
+.DS_Store
+Thumbs.db
