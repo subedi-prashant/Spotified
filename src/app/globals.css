@@ -79,6 +79,17 @@ input {
   -webkit-tap-highlight-color: transparent;
 }
 
+.spotify-player-range {
+  height: 1rem;
+  cursor: pointer;
+  accent-color: #ffffff;
+}
+
+.spotify-player-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
 ::selection {
   background: rgba(199, 164, 255, 0.3);
   color: #fff;

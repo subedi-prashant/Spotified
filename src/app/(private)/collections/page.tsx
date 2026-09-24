@@ -5,12 +5,13 @@ import { PageHeader } from "@/components/page-header";
 import { Pagination } from "@/components/pagination";
 import { ProviderError } from "@/components/provider-error";
 import { SectionHeading } from "@/components/section-heading";
+import { SpotifyPlaybackSourceProvider } from "@/components/spotify/player/playback-source";
 import { PlaylistCard } from "@/components/spotify/playlist-card";
-import { SpotifyAttribution } from "@/components/spotify/spotify-attribution";
 import { TrackRow } from "@/components/spotify/track-row";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { RequireCurrentSession } from "@/lib/auth/session";
 import { ParseOffset } from "@/lib/pagination";
+import { GetSpotifyTrackUris } from "@/lib/spotify/playback";
 import { CaptureSpotifyOperation } from "@/server/services/spotify-page-service";
 import { GetSpotifyCollections } from "@/server/services/spotify-service";
 
@@ -52,7 +53,6 @@ export default async function CollectionsPage({
         eyebrow="Your Spotify library"
         title="Collections, without the clutter"
         description="Playlist metadata and saved tracks are shown as Spotify supplies them. Playlist contents can be opened only when you own or collaborate on that playlist."
-        action={<SpotifyAttribution />}
       />
 
       <section className="space-y-5">
@@ -93,19 +93,28 @@ export default async function CollectionsPage({
           </CardHeader>
           <CardContent>
             {collections.savedTracks.items.length > 0 ? (
-              <div className="grid gap-x-6 lg:grid-cols-2">
-                {collections.savedTracks.items.map((item, index) => (
-                  <TrackRow
-                    key={`${item.added_at}-${item.track.id ?? index}`}
-                    track={item.track}
-                    trailing={new Intl.DateTimeFormat("en", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    }).format(new Date(item.added_at))}
-                  />
-                ))}
-              </div>
+              <SpotifyPlaybackSourceProvider
+                source={{
+                  type: "queue",
+                  uris: GetSpotifyTrackUris(
+                    collections.savedTracks.items.map((item) => item.track),
+                  ),
+                }}
+              >
+                <div className="grid gap-x-6 lg:grid-cols-2">
+                  {collections.savedTracks.items.map((item, index) => (
+                    <TrackRow
+                      key={`${item.added_at}-${item.track.id ?? index}`}
+                      track={item.track}
+                      trailing={new Intl.DateTimeFormat("en", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      }).format(new Date(item.added_at))}
+                    />
+                  ))}
+                </div>
+              </SpotifyPlaybackSourceProvider>
             ) : (
               <EmptyState
                 title="No saved tracks on this page"

@@ -4,11 +4,12 @@ import { Clock3 } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { ProviderError } from "@/components/provider-error";
-import { SpotifyAttribution } from "@/components/spotify/spotify-attribution";
+import { SpotifyPlaybackSourceProvider } from "@/components/spotify/player/playback-source";
 import { TrackRow } from "@/components/spotify/track-row";
 import { Card, CardContent } from "@/components/ui/card";
 import { RequireCurrentSession } from "@/lib/auth/session";
 import { FormatRelativeTime } from "@/lib/spotify/format";
+import { GetSpotifyTrackUris } from "@/lib/spotify/playback";
 import { CaptureSpotifyOperation } from "@/server/services/spotify-page-service";
 import { GetSpotifyRecent } from "@/server/services/spotify-service";
 
@@ -42,23 +43,29 @@ export default async function RecentPage() {
         eyebrow="Spotify playback history"
         title="Recently played"
         description="Up to 50 of the latest track records Spotify currently exposes. This is a limited recent feed—not your full listening history."
-        action={<SpotifyAttribution />}
       />
 
       {recent.items.length > 0 ? (
-        <Card>
-          <CardContent className="p-3 sm:p-5">
-            <div className="grid gap-x-8 lg:grid-cols-2">
-              {recent.items.map((item, index) => (
-                <TrackRow
-                  key={`${item.played_at}-${item.track.id ?? index}`}
-                  track={item.track}
-                  trailing={FormatRelativeTime(item.played_at)}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <SpotifyPlaybackSourceProvider
+          source={{
+            type: "queue",
+            uris: GetSpotifyTrackUris(recent.items.map((item) => item.track)),
+          }}
+        >
+          <Card>
+            <CardContent className="p-3 sm:p-5">
+              <div className="grid gap-x-8 lg:grid-cols-2">
+                {recent.items.map((item, index) => (
+                  <TrackRow
+                    key={`${item.played_at}-${item.track.id ?? index}`}
+                    track={item.track}
+                    trailing={FormatRelativeTime(item.played_at)}
+                  />
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </SpotifyPlaybackSourceProvider>
       ) : (
         <EmptyState
           title="No recent tracks available"

@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ExternalLink, KeyRound, Link2Off, LogOut, RefreshCw, ShieldCheck } from "lucide-react";
+import {
+  ExternalLink,
+  KeyRound,
+  Link2Off,
+  LogOut,
+  Play,
+  RefreshCw,
+  ShieldCheck,
+} from "lucide-react";
 
 import { PageHeader } from "@/components/page-header";
 import { Artwork } from "@/components/spotify/artwork";
@@ -29,7 +37,7 @@ export default async function SettingsPage({
   const status = await GetSpotifyConnectionStatus(session.userId);
   let profile: SpotifyProfile | null = null;
 
-  if (status === "connected") {
+  if (status === "connected" || status === "missing_scopes") {
     try {
       profile = await GetSpotifyProfile(session.userId);
     } catch {
@@ -55,13 +63,25 @@ export default async function SettingsPage({
         </div>
       ) : null}
 
+      {status === "missing_scopes" ? (
+        <div
+          className="rounded-2xl border border-violet-300/20 bg-violet-300/5 px-5 py-4 text-sm text-violet-100"
+          role="status"
+        >
+          Reconnect Spotify once to approve Premium web playback. Your existing account data remains
+          connected until then.
+        </div>
+      ) : null}
+
       <div className="grid gap-5 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-start justify-between gap-4">
               <div>
                 <CardTitle>Spotify connection</CardTitle>
-                <CardDescription>Read-only access for the approved beta account.</CardDescription>
+                <CardDescription>
+                  Private account views and Premium playback for the approved beta account.
+                </CardDescription>
               </div>
               <Badge variant={status === "connected" ? "default" : "secondary"}>
                 {status === "connected" ? "Connected" : "Reconnect"}
@@ -115,7 +135,8 @@ export default async function SettingsPage({
           <CardHeader>
             <CardTitle>Permission boundary</CardTitle>
             <CardDescription>
-              Spotified requests only the five read scopes used by its views.
+              Spotified requests account-read scopes plus the minimum scopes for Premium web
+              playback.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -124,9 +145,22 @@ export default async function SettingsPage({
                 <ShieldCheck className="size-5" aria-hidden="true" />
               </span>
               <div>
-                <p className="text-sm font-semibold">No playlist write access</p>
+                <p className="text-sm font-semibold">No content or library writes</p>
                 <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                  The app cannot create, change, or delete anything in Spotify.
+                  The app cannot create, edit, save, or delete Spotify playlists or library items.
+                </p>
+              </div>
+            </div>
+            <Separator />
+            <div className="flex gap-3">
+              <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-green-400/10 text-green-300">
+                <Play className="ml-0.5 size-4 fill-current" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold">Playback control exception</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Premium users can stream and control songs in this browser through Spotify’s
+                  official SDK.
                 </p>
               </div>
             </div>

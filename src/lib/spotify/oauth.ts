@@ -6,13 +6,29 @@ const AUTHORIZE_URL = "https://accounts.spotify.com/authorize";
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
 
 export const SPOTIFY_STATE_COOKIE = "spotified_spotify_state";
+export const SPOTIFY_PLAYBACK_SCOPES = [
+  "streaming",
+  "user-modify-playback-state",
+  "user-read-email",
+  "user-read-private",
+] as const;
+
 export const SPOTIFY_SCOPES = [
   "playlist-read-collaborative",
   "playlist-read-private",
+  ...SPOTIFY_PLAYBACK_SCOPES,
   "user-library-read",
   "user-read-recently-played",
   "user-top-read",
 ] as const;
+
+export function HasSpotifyScopes(
+  grantedScopes: readonly string[],
+  requiredScopes: readonly string[] = SPOTIFY_SCOPES,
+): boolean {
+  const grantedScopeSet = new Set(grantedScopes);
+  return requiredScopes.every((scope) => grantedScopeSet.has(scope));
+}
 
 const TokenResponseSchema = z
   .object({

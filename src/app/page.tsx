@@ -101,16 +101,16 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
           <div className="max-w-2xl space-y-9">
             <Badge variant="outline">
               <Sparkles className="size-3" aria-hidden="true" />
-              Your music, clearly seen
+              Your music, clearly seen and heard
             </Badge>
             <div className="space-y-6">
               <h1 className="text-balance text-[clamp(3.25rem,8vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.075em]">
-                A quieter view of your music.
+                A quieter way to see and play your music.
               </h1>
               <p className="max-w-xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-                Spotified brings your Spotify rankings, recent plays, saved tracks, and playlists
-                into one focused private space—without pretending they are metrics Spotify does not
-                provide.
+                Spotified brings your Spotify rankings, recent plays, saved tracks, playlists, and
+                Premium web playback into one focused private space—without inventing metrics
+                Spotify does not provide.
               </p>
             </div>
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -120,13 +120,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               ) : (
-                <Link
+                <a
                   href="/api/auth/spotify/start?consent=accepted"
                   className={ButtonVariants({ size: "lg" })}
                 >
                   Connect Spotify
                   <ArrowRight className="size-4" aria-hidden="true" />
-                </Link>
+                </a>
               )}
               <span className="max-w-xs text-xs leading-5 text-muted-foreground">
                 By connecting, you agree to the{" "}
@@ -143,11 +143,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
             <div className="flex flex-wrap gap-x-6 gap-y-3 text-xs font-medium text-muted-foreground">
               <span className="inline-flex items-center gap-2">
                 <LockKeyhole className="size-4 text-violet-300" aria-hidden="true" />
-                Server-side tokens
+                Encrypted credentials
               </span>
               <span className="inline-flex items-center gap-2">
                 <ShieldCheck className="size-4 text-violet-300" aria-hidden="true" />
-                Read-only access
+                Premium web playback
               </span>
               <span className="inline-flex items-center gap-2">
                 <Fingerprint className="size-4 text-violet-300" aria-hidden="true" />
@@ -191,6 +191,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ a
                   title="Your collection"
                   description="Saved tracks and playlist metadata"
                   tone="pink"
+                />
+                <PreviewRow
+                  icon={Music2}
+                  title="Premium web playback"
+                  description="Full songs through Spotify’s official SDK"
+                  tone="violet"
                 />
                 <div className="rounded-2xl border border-dashed border-white/10 bg-black/15 px-5 py-4">
                   <p className="text-xs font-semibold text-foreground">

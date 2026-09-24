@@ -4,15 +4,16 @@ import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { ProviderError } from "@/components/provider-error";
 import { SectionHeading } from "@/components/section-heading";
+import { SpotifyPlaybackSourceProvider } from "@/components/spotify/player/playback-source";
 import { ArtistCard } from "@/components/spotify/artist-card";
 import { Artwork } from "@/components/spotify/artwork";
-import { SpotifyAttribution } from "@/components/spotify/spotify-attribution";
 import { TimeRangeTabs } from "@/components/spotify/time-range-tabs";
 import { TrackRow } from "@/components/spotify/track-row";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { RequireCurrentSession } from "@/lib/auth/session";
 import type { SpotifyTimeRange } from "@/lib/spotify/client";
 import { FormatRelativeTime } from "@/lib/spotify/format";
+import { GetSpotifyTrackUris } from "@/lib/spotify/playback";
 import { CaptureSpotifyOperation } from "@/server/services/spotify-page-service";
 import { GetSpotifySnapshot } from "@/server/services/spotify-service";
 
@@ -78,7 +79,6 @@ export default async function SnapshotPage({
                 This page presents Spotify’s supplied order and metadata without turning it into
                 unsupported precision.
               </p>
-              <SpotifyAttribution className="pt-2" />
             </div>
           </CardContent>
         </Card>
@@ -117,15 +117,19 @@ export default async function SnapshotPage({
           </CardHeader>
           <CardContent>
             {snapshot.topTracks.items.length > 0 ? (
-              <div className="space-y-0.5">
-                {snapshot.topTracks.items.map((track, index) => (
-                  <TrackRow
-                    key={`${track.id ?? track.uri}-${index}`}
-                    track={track}
-                    rank={index + 1}
-                  />
-                ))}
-              </div>
+              <SpotifyPlaybackSourceProvider
+                source={{ type: "queue", uris: GetSpotifyTrackUris(snapshot.topTracks.items) }}
+              >
+                <div className="space-y-0.5">
+                  {snapshot.topTracks.items.map((track, index) => (
+                    <TrackRow
+                      key={`${track.id ?? track.uri}-${index}`}
+                      track={track}
+                      rank={index + 1}
+                    />
+                  ))}
+                </div>
+              </SpotifyPlaybackSourceProvider>
             ) : (
               <EmptyState
                 title="No track ranking yet"
@@ -144,15 +148,24 @@ export default async function SnapshotPage({
           </CardHeader>
           <CardContent>
             {snapshot.recentlyPlayed.items.length > 0 ? (
-              <div className="space-y-0.5">
-                {snapshot.recentlyPlayed.items.map((item, index) => (
-                  <TrackRow
-                    key={`${item.played_at}-${item.track.id ?? index}`}
-                    track={item.track}
-                    trailing={FormatRelativeTime(item.played_at)}
-                  />
-                ))}
-              </div>
+              <SpotifyPlaybackSourceProvider
+                source={{
+                  type: "queue",
+                  uris: GetSpotifyTrackUris(
+                    snapshot.recentlyPlayed.items.map((item) => item.track),
+                  ),
+                }}
+              >
+                <div className="space-y-0.5">
+                  {snapshot.recentlyPlayed.items.map((item, index) => (
+                    <TrackRow
+                      key={`${item.played_at}-${item.track.id ?? index}`}
+                      track={item.track}
+                      trailing={FormatRelativeTime(item.played_at)}
+                    />
+                  ))}
+                </div>
+              </SpotifyPlaybackSourceProvider>
             ) : (
               <EmptyState
                 title="Nothing recent to show"

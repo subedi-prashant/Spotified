@@ -41,7 +41,7 @@ export default async function PrivacyPage({
       <LegalSection title="Data collected and stored">
         <ul className="list-disc space-y-2 pl-5">
           <li>Spotify’s immutable account identifier and current Spotify user identifier.</li>
-          <li>Spotify access and refresh tokens, encrypted before storage.</li>
+          <li>Spotify access and refresh tokens, encrypted before database storage.</li>
           <li>
             The scopes granted, access-token expiry, authorization time, and connection status.
           </li>
@@ -51,17 +51,27 @@ export default async function PrivacyPage({
         </ul>
         <p>
           Spotified fetches profile details, affinity-ranked top artists and tracks, recently played
-          tracks, saved tracks, playlist metadata, permitted playlist items, and manual search
-          results when needed to render a private page. It does not build a permanent Spotify
-          listening-history or catalog database from those responses.
+          tracks, saved tracks, playlist metadata, permitted playlist items, manual search results,
+          and current SDK playback state when needed for a private page or player. It does not build
+          a permanent Spotify listening-history or catalog database from those responses. The
+          documented SDK grant includes email access, but Spotified does not read, store, display,
+          or use your Spotify email address.
         </p>
       </LegalSection>
 
       <LegalSection title="How data is used">
         <p>
-          The data is used only to authenticate you, refresh the Spotify connection, and display the
-          read-only views you request. Spotified does not sell data, use it for advertising, email
-          Spotify users, train AI models, or calculate an app-generated taste profile.
+          The data is used only to authenticate you, refresh the Spotify connection, display the
+          account views you request, and stream or control songs you explicitly choose through
+          Spotify’s official Web Playback SDK. Spotified does not sell data, use it for advertising,
+          email Spotify users, train AI models, or calculate an app-generated taste profile.
+        </p>
+        <p>
+          When an authenticated private page opens, the browser connects the SDK as a Spotify
+          Connect device. The SDK receives a current, short-lived access token from an
+          authenticated, uncached Spotified endpoint. That token is used in memory and is not placed
+          in a URL, browser storage, application logs, or the page’s rendered content. Refresh
+          tokens and the Spotify client secret remain server-side.
         </p>
       </LegalSection>
 
@@ -69,8 +79,9 @@ export default async function PrivacyPage({
         <p>
           The application is designed to run on Vercel and store its small authentication database
           in Supabase PostgreSQL. Those providers process data as infrastructure providers under
-          their own terms and configured deployment regions. Spotify processes the OAuth flow and
-          API requests under Spotify’s own terms and privacy policy.
+          their own terms and configured deployment regions. Spotify processes the OAuth flow, API
+          requests, SDK device connection, and audio streaming under Spotify’s own terms and privacy
+          policy.
         </p>
       </LegalSection>
 
@@ -96,9 +107,10 @@ export default async function PrivacyPage({
 
       <LegalSection title="Your choices">
         <p>
-          You may decline the Spotify connection, cancel Spotify authorization, sign out, reconnect,
-          or disconnect and delete local data at any time. Contact {contact} with access,
-          correction, restriction, deletion, or privacy questions.
+          You may decline the Spotify connection, cancel Spotify authorization, avoid starting
+          playback, sign out, reconnect, or disconnect and delete local data at any time. Full song
+          playback is available only to qualifying Spotify Premium accounts. Contact {contact} with
+          access, correction, restriction, deletion, or privacy questions.
         </p>
       </LegalSection>
 
