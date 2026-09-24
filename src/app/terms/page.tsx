@@ -18,9 +18,10 @@ export default function TermsPage() {
     >
       <LegalSection title="Private beta">
         <p>
-          Spotified is an independent, read-only personal project for Spotify accounts approved on
-          the app owner’s Development Mode allowlist. It is not endorsed, sponsored, or operated by
-          Spotify. Do not use it for commercial, business, or unlawful purposes.
+          Spotified is an independent, private, non-commercial personal project for Spotify accounts
+          approved on the app owner’s Development Mode allowlist. It is not endorsed, sponsored, or
+          operated by Spotify. Do not use it for commercial, business, public-performance, or
+          unlawful purposes.
         </p>
       </LegalSection>
 
@@ -36,10 +37,21 @@ export default function TermsPage() {
 
       <LegalSection title="What the app does">
         <p>
-          Spotified displays limited account information returned by Spotify. Spotify-provided top
-          items are affinity rankings, not play counts. Recently played records are not a complete
-          listening history. The app does not promise listening-time analytics, a taste profile,
-          recommendations, continuous availability, or permanent access to any endpoint.
+          Spotified displays limited account information returned by Spotify and lets qualifying
+          Premium users stream songs through Spotify’s official Web Playback SDK. Spotify-provided
+          top items are affinity rankings, not play counts. Recently played records are not a
+          complete listening history. The app does not promise listening-time analytics, a taste
+          profile, recommendations, continuous availability, or permanent access to any endpoint.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Playback rules">
+        <p>
+          Full song playback requires a qualifying Spotify Premium subscription and an explicit user
+          action. Playback is for private, personal listening only. You must not record, download,
+          alter, mix, synchronize, rebroadcast, publicly perform, or commercially use Spotify audio
+          through Spotified. Spotify may restrict content, devices, controls, territories, or
+          account eligibility at any time.
         </p>
       </LegalSection>
 
@@ -63,10 +75,10 @@ export default function TermsPage() {
 
       <LegalSection title="Data and account control">
         <p>
-          You authorize the requested read scopes when you approve Spotify’s consent screen. You may
-          sign out or disconnect at any time. Disconnecting deletes the local records described in
-          the privacy notice; remotely revoking Spotify access is a separate action in Spotify’s
-          Manage Apps controls.
+          You authorize the requested account-read and playback-control scopes when you approve
+          Spotify’s consent screen. You may sign out or disconnect at any time. Disconnecting
+          deletes the local records described in the privacy notice; remotely revoking Spotify
+          access is a separate action in Spotify’s Manage Apps controls.
         </p>
       </LegalSection>
 

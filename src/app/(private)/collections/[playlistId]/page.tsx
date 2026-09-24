@@ -7,7 +7,7 @@ import { PageHeader } from "@/components/page-header";
 import { Pagination } from "@/components/pagination";
 import { ProviderError } from "@/components/provider-error";
 import { EpisodeRow } from "@/components/spotify/episode-row";
-import { SpotifyAttribution } from "@/components/spotify/spotify-attribution";
+import { SpotifyPlaybackSourceProvider } from "@/components/spotify/player/playback-source";
 import { TrackRow } from "@/components/spotify/track-row";
 import { ButtonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -89,34 +89,39 @@ export default async function PlaylistPage({
               Open in Spotify
               <ExternalLink className="size-3.5" aria-hidden="true" />
             </a>
-          ) : (
-            <SpotifyAttribution />
-          )
+          ) : null
         }
       />
       {playableItems.length > 0 ? (
-        <Card>
-          <CardContent className="grid gap-x-8 p-3 sm:p-5 lg:grid-cols-2">
-            {playableItems.map((entry, index) => {
-              if (!entry.item) {
-                return null;
-              }
+        <SpotifyPlaybackSourceProvider
+          source={{ type: "context", contextUri: details.playlist.uri }}
+        >
+          <Card>
+            <CardContent className="grid gap-x-8 p-3 sm:p-5 lg:grid-cols-2">
+              {playableItems.map((entry, index) => {
+                if (!entry.item) {
+                  return null;
+                }
 
-              if (entry.item.type === "episode") {
+                if (entry.item.type === "episode") {
+                  return (
+                    <EpisodeRow
+                      key={`${entry.item.id ?? entry.item.uri}-${index}`}
+                      episode={entry.item}
+                    />
+                  );
+                }
+
                 return (
-                  <EpisodeRow
+                  <TrackRow
                     key={`${entry.item.id ?? entry.item.uri}-${index}`}
-                    episode={entry.item}
+                    track={entry.item}
                   />
                 );
-              }
-
-              return (
-                <TrackRow key={`${entry.item.id ?? entry.item.uri}-${index}`} track={entry.item} />
-              );
-            })}
-          </CardContent>
-        </Card>
+              })}
+            </CardContent>
+          </Card>
+        </SpotifyPlaybackSourceProvider>
       ) : (
         <EmptyState
           title="No available items on this page"
@@ -129,7 +134,6 @@ export default async function PlaylistPage({
         pageSize={PAGE_SIZE}
         total={details.items.total}
       />
-      <SpotifyAttribution className="justify-center" />
     </div>
   );
 }

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     default: "Spotified",
     template: "%s · Spotified",
   },
-  description: "A focused, private view of the music already connected to your Spotify account.",
+  description: "A focused, private Spotify companion with Premium web playback.",
   applicationName: "Spotified",
   robots: {
     index: false,

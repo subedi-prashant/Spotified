@@ -5,13 +5,14 @@ import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { ProviderError } from "@/components/provider-error";
 import { SectionHeading } from "@/components/section-heading";
+import { SpotifyPlaybackSourceProvider } from "@/components/spotify/player/playback-source";
 import { ArtistCard } from "@/components/spotify/artist-card";
-import { SpotifyAttribution } from "@/components/spotify/spotify-attribution";
 import { TrackRow } from "@/components/spotify/track-row";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { RequireCurrentSession } from "@/lib/auth/session";
+import { GetSpotifyTrackUris } from "@/lib/spotify/playback";
 import { CaptureSpotifyOperation } from "@/server/services/spotify-page-service";
 import { SearchSpotify } from "@/server/services/spotify-service";
 
@@ -76,13 +77,17 @@ export default async function ExplorePage({
       <section className="space-y-5">
         <SectionHeading title="Tracks" description="Up to 10 results from Spotify search" />
         {tracks.length > 0 ? (
-          <Card>
-            <CardContent className="grid gap-x-8 p-3 sm:p-5 lg:grid-cols-2">
-              {tracks.map((track, index) => (
-                <TrackRow key={`${track.id ?? track.uri}-${index}`} track={track} />
-              ))}
-            </CardContent>
-          </Card>
+          <SpotifyPlaybackSourceProvider
+            source={{ type: "queue", uris: GetSpotifyTrackUris(tracks) }}
+          >
+            <Card>
+              <CardContent className="grid gap-x-8 p-3 sm:p-5 lg:grid-cols-2">
+                {tracks.map((track, index) => (
+                  <TrackRow key={`${track.id ?? track.uri}-${index}`} track={track} />
+                ))}
+              </CardContent>
+            </Card>
+          </SpotifyPlaybackSourceProvider>
         ) : (
           <EmptyState
             title="No tracks found"
@@ -101,7 +106,6 @@ function ExploreHeader({ query }: { query: string }) {
         eyebrow="Manual catalog search"
         title="Explore without an algorithm"
         description="Search directly. Spotified does not calculate a taste match or imply that you have never heard a result."
-        action={<SpotifyAttribution />}
       />
       <form className="flex max-w-2xl gap-2" role="search">
         <Input

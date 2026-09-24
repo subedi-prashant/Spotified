@@ -3,7 +3,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   BuildSpotifyAuthorizationUrl,
   ExchangeAuthorizationCode,
+  HasSpotifyScopes,
   RefreshSpotifyAccessToken,
+  SPOTIFY_PLAYBACK_SCOPES,
   SPOTIFY_SCOPES,
   SpotifyTokenError,
 } from "@/lib/spotify/oauth";
@@ -22,7 +24,7 @@ describe("Spotify OAuth", () => {
     process.env.SPOTIFY_REDIRECT_URI = "http://127.0.0.1:3000/api/auth/spotify/callback";
   });
 
-  it("builds an authorization request with state and read-only scopes", () => {
+  it("builds an authorization request with every required read and playback scope", () => {
     const url = new URL(BuildSpotifyAuthorizationUrl("opaque-state"));
 
     expect(url.origin).toBe("https://accounts.spotify.com");
@@ -31,7 +33,23 @@ describe("Spotify OAuth", () => {
       "http://127.0.0.1:3000/api/auth/spotify/callback",
     );
     expect(url.searchParams.get("scope")?.split(" ").sort()).toEqual([...SPOTIFY_SCOPES].sort());
-    expect(url.searchParams.get("scope")).not.toContain("modify");
+    expect(SPOTIFY_PLAYBACK_SCOPES).toEqual([
+      "streaming",
+      "user-modify-playback-state",
+      "user-read-email",
+      "user-read-private",
+    ]);
+  });
+
+  it("detects legacy grants that are missing playback scopes", () => {
+    const legacyScopes = SPOTIFY_SCOPES.filter(
+      (scope) =>
+        !SPOTIFY_PLAYBACK_SCOPES.includes(scope as (typeof SPOTIFY_PLAYBACK_SCOPES)[number]),
+    );
+
+    expect(HasSpotifyScopes(SPOTIFY_SCOPES)).toBe(true);
+    expect(HasSpotifyScopes(legacyScopes)).toBe(false);
+    expect(HasSpotifyScopes(["streaming"], SPOTIFY_PLAYBACK_SCOPES)).toBe(false);
   });
 
   it("exchanges the code only from the server with basic client authentication", async () => {

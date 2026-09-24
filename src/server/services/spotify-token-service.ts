@@ -8,6 +8,7 @@ import { DecryptSecret, EncryptSecret } from "@/lib/auth/crypto";
 import { GetTokenEncryptionKey } from "@/lib/env";
 import { SpotifyApiError, SpotifyClient } from "@/lib/spotify/client";
 import {
+  HasSpotifyScopes,
   RefreshSpotifyAccessToken,
   SPOTIFY_SCOPES,
   SpotifyTokenError,
@@ -28,6 +29,13 @@ export class SpotifyAccountNotFoundError extends Error {
   public constructor() {
     super("No Spotify account is connected.");
     this.name = "SpotifyAccountNotFoundError";
+  }
+}
+
+export class SpotifyScopesRequiredError extends Error {
+  public constructor() {
+    super("Reconnect Spotify to approve the required permissions.");
+    this.name = "SpotifyScopesRequiredError";
   }
 }
 
@@ -178,6 +186,29 @@ export async function GetSpotifyAccessToken(userId: string, forceRefresh = false
   });
 }
 
+export async function RequireSpotifyScopes(
+  userId: string,
+  requiredScopes: readonly string[] = SPOTIFY_SCOPES,
+): Promise<void> {
+  const [account] = await GetDatabase()
+    .select({ grantedScopes: SpotifyAccounts.grantedScopes, status: SpotifyAccounts.status })
+    .from(SpotifyAccounts)
+    .where(eq(SpotifyAccounts.userId, userId))
+    .limit(1);
+
+  if (!account) {
+    throw new SpotifyAccountNotFoundError();
+  }
+
+  if (account.status !== "connected") {
+    throw new SpotifyReconnectRequiredError();
+  }
+
+  if (!HasSpotifyScopes(account.grantedScopes, requiredScopes)) {
+    throw new SpotifyScopesRequiredError();
+  }
+}
+
 export async function RunSpotifyOperation<TResult>(
   userId: string,
   operation: (client: SpotifyClient) => Promise<TResult>,
@@ -202,17 +233,24 @@ export async function DisconnectSpotifyAccount(userId: string): Promise<void> {
 
 export async function GetSpotifyConnectionStatus(
   userId: string,
-): Promise<"connected" | "reconnect_required" | "missing"> {
+): Promise<"connected" | "missing_scopes" | "reconnect_required" | "missing"> {
   const [account] = await GetDatabase()
-    .select({ status: SpotifyAccounts.status })
+    .select({ grantedScopes: SpotifyAccounts.grantedScopes, status: SpotifyAccounts.status })
     .from(SpotifyAccounts)
     .where(eq(SpotifyAccounts.userId, userId))
     .limit(1);
 
-  return account?.status ?? "missing";
+  if (!account) {
+    return "missing";
+  }
+
+  if (account.status !== "connected") {
+    return "reconnect_required";
+  }
+
+  return HasSpotifyScopes(account.grantedScopes) ? "connected" : "missing_scopes";
 }
 
 function ParseScopes(scope: string): string[] {
-  const scopes = scope.split(/\s+/).filter(Boolean);
-  return [...new Set(scopes.length > 0 ? scopes : SPOTIFY_SCOPES)].sort();
+  return [...new Set(scope.split(/\s+/).filter(Boolean))].sort();
 }

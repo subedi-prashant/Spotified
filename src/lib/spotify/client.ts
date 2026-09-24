@@ -25,6 +25,10 @@ const API_URL = "https://api.spotify.com/v1/";
 
 export type SpotifyTimeRange = "short_term" | "medium_term" | "long_term";
 
+export type SpotifyStartPlaybackCommand =
+  | { deviceId: string; contextUri: string; offsetUri: string }
+  | { deviceId: string; uris: readonly string[] };
+
 export class SpotifyApiError extends Error {
   public readonly status: number;
   public readonly reason: string | null;
@@ -127,6 +131,15 @@ export class SpotifyClient {
     });
   }
 
+  public StartPlayback(command: SpotifyStartPlaybackCommand): Promise<void> {
+    const body =
+      "contextUri" in command
+        ? { context_uri: command.contextUri, offset: { uri: command.offsetUri } }
+        : { uris: command.uris };
+
+    return this.command("me/player/play", { device_id: command.deviceId }, body);
+  }
+
   private async request<TSchema extends z.ZodType>(
     path: string,
     schema: TSchema,
@@ -159,6 +172,34 @@ export class SpotifyClient {
     }
 
     return result.data;
+  }
+
+  private async command(
+    path: string,
+    parameters: Record<string, string>,
+    body: unknown,
+  ): Promise<void> {
+    const url = new URL(path, this.baseUrl);
+
+    for (const [name, value] of Object.entries(parameters)) {
+      url.searchParams.set(name, value);
+    }
+
+    const response = await this.fetchImplementation(url, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${this.accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+      signal: AbortSignal.timeout(10_000),
+    });
+
+    if (!response.ok) {
+      throw CreateApiError(response, await ReadJson(response));
+    }
   }
 }
 
