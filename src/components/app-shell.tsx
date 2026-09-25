@@ -9,6 +9,7 @@ import { Clock3, Compass, LibraryBig, LogOut, Settings2, Sparkles } from "lucide
 import { BrandMark } from "@/components/brand-mark";
 import { SpotifyPlayerBar } from "@/components/spotify/player/spotify-player-bar";
 import { SpotifyPlayerProvider } from "@/components/spotify/player/spotify-player-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Cn } from "@/lib/utils";
 
@@ -74,6 +75,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           </nav>
           <div className="press-stripes h-9 border-y border-foreground" aria-hidden="true" />
+          <ThemeToggle />
           <form action="/api/auth/logout" method="post" className="p-4">
             <Button type="submit" variant="outline" className="w-full justify-between">
               Sign out
@@ -87,11 +89,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             <BrandMark compact />
           </Link>
           <span className="press-label">Private / Premium</span>
-          <form action="/api/auth/logout" method="post">
-            <Button type="submit" variant="ghost" size="icon" aria-label="Sign out">
-              <LogOut className="size-4" aria-hidden="true" />
-            </Button>
-          </form>
+          <div className="flex items-center gap-1">
+            <ThemeToggle compact />
+            <form action="/api/auth/logout" method="post">
+              <Button type="submit" variant="ghost" size="icon" aria-label="Sign out">
+                <LogOut className="size-4" aria-hidden="true" />
+              </Button>
+            </form>
+          </div>
         </header>
 
         <main className="mx-auto w-full max-w-[100rem] px-4 pb-64 pt-7 sm:px-7 sm:pt-10 md:pb-40 lg:px-10">

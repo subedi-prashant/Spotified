@@ -16,7 +16,7 @@ export function Artwork({
   if (src) {
     return (
       <span
-        className={Cn("relative block shrink-0 border border-foreground/40 bg-white", className)}
+        className={Cn("relative block shrink-0 border border-foreground/40 bg-card", className)}
       >
         <img src={src} alt={alt} className="size-full object-contain" loading="lazy" />
       </span>

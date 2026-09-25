@@ -49,6 +49,21 @@
   --radius: 0.125rem;
 }
 
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f3f2ed;
+  --card: #151512;
+  --card-foreground: #f3f2ed;
+  --secondary: #1c1c17;
+  --secondary-foreground: #ffffff;
+  --muted: #24241f;
+  --muted-foreground: #9c9c93;
+  --accent: #2c160a;
+  --accent-foreground: #f3f2ed;
+  --border: rgba(243, 242, 237, 0.32);
+  --input: rgba(243, 242, 237, 0.55);
+}
+
 * {
   box-sizing: border-box;
   border-color: var(--border);
@@ -60,6 +75,10 @@ html {
   background: var(--background);
   scroll-behavior: smooth;
   scrollbar-color: var(--foreground) var(--background);
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
