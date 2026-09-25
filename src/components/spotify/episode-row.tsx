@@ -1,5 +1,6 @@
-import { ExternalLink, Podcast } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
+import { Artwork } from "@/components/spotify/artwork";
 import { FormatDuration } from "@/lib/spotify/format";
 import type { SpotifyPlayableItem } from "@/lib/spotify/schemas";
 
@@ -10,18 +11,20 @@ export function EpisodeRow({
 }) {
   const body = (
     <>
-      <span className="grid size-11 shrink-0 place-items-center rounded-lg border border-white/8 bg-violet-500/10 text-violet-200">
-        <Podcast className="size-5" aria-hidden="true" />
-      </span>
+      <Artwork src={episode.images[0]?.url} alt={`${episode.name} artwork`} className="size-12" />
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-semibold text-foreground">{episode.name}</span>
-        <span className="mt-0.5 block truncate text-xs text-muted-foreground">Podcast episode</span>
+        <span className="block truncate font-display text-base font-bold uppercase leading-none">
+          {episode.name}
+        </span>
+        <span className="mt-1 block truncate text-[0.7rem] uppercase tracking-[0.06em] text-muted-foreground">
+          Podcast episode / Spotify only
+        </span>
       </span>
-      <span className="hidden text-xs text-muted-foreground sm:block">
+      <span className="hidden text-[0.68rem] tabular-nums text-muted-foreground sm:block">
         {FormatDuration(episode.duration_ms)}
       </span>
       {episode.external_urls.spotify ? (
-        <ExternalLink className="size-3.5 text-muted-foreground" />
+        <ExternalLink className="size-3.5 text-muted-foreground" aria-hidden="true" />
       ) : null}
     </>
   );
@@ -32,12 +35,14 @@ export function EpisodeRow({
         href={episode.external_urls.spotify}
         target="_blank"
         rel="noreferrer"
-        className="flex items-center gap-3 rounded-xl px-2.5 py-2 transition hover:bg-white/[0.045] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex items-center gap-3 border-b border-foreground/25 px-2 py-2.5 transition hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {body}
       </a>
     );
   }
 
-  return <div className="flex items-center gap-3 rounded-xl px-2.5 py-2">{body}</div>;
+  return (
+    <div className="flex items-center gap-3 border-b border-foreground/25 px-2 py-2.5">{body}</div>
+  );
 }

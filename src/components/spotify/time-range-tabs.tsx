@@ -12,7 +12,7 @@ const RANGES: Array<{ value: SpotifyTimeRange; label: string }> = [
 export function TimeRangeTabs({ selected }: { selected: SpotifyTimeRange }) {
   return (
     <nav
-      className="inline-flex rounded-full border border-border bg-background/50 p-1"
+      className="inline-grid grid-cols-3 border border-foreground"
       aria-label="Spotify affinity time range"
     >
       {RANGES.map((range) => (
@@ -21,10 +21,10 @@ export function TimeRangeTabs({ selected }: { selected: SpotifyTimeRange }) {
           href={`/snapshot?range=${range.value}`}
           aria-current={range.value === selected ? "page" : undefined}
           className={Cn(
-            "rounded-full px-3 py-1.5 text-xs font-semibold transition sm:px-4",
+            "border-r border-foreground px-3 py-2 font-display text-xs font-bold uppercase tracking-[0.08em] transition last:border-r-0 sm:px-4",
             range.value === selected
-              ? "bg-foreground text-background shadow-sm"
-              : "text-muted-foreground hover:text-foreground",
+              ? "bg-foreground text-background"
+              : "bg-background text-muted-foreground hover:bg-primary hover:text-foreground",
           )}
         >
           {range.label}

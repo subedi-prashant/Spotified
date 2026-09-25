@@ -105,7 +105,7 @@ export function SpotifyPlayerBar() {
 
   return (
     <section
-      className="fixed inset-x-3 bottom-[5.9rem] z-50 mx-auto max-w-7xl rounded-2xl border border-white/10 bg-[#121212]/95 px-3 py-3 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.9)] backdrop-blur-2xl sm:px-4 md:bottom-3"
+      className="fixed bottom-[5.35rem] left-3 right-3 z-50 border border-black border-t-4 border-t-primary bg-secondary px-3 py-3 text-white shadow-[0_16px_34px_-18px_rgba(0,0,0,0.75)] sm:px-4 md:bottom-4 md:left-[15.75rem] md:right-4"
       aria-label="Spotify web player"
     >
       <div className="grid items-center gap-3 md:grid-cols-[minmax(0,1fr)_minmax(18rem,1.25fr)_minmax(0,1fr)] md:gap-5">
@@ -115,48 +115,51 @@ export function SpotifyPlayerBar() {
               href={currentTrack.spotifyUrl}
               target="_blank"
               rel="noreferrer"
-              className="shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="shrink-0 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-primary"
               aria-label={`Open ${currentTrack.name} in Spotify`}
             >
               <Artwork
                 src={currentTrack.imageUrl}
                 alt={`${currentTrack.albumName} cover`}
-                className="size-11 rounded sm:size-12"
+                className="size-12 border-white/35"
               />
             </a>
           ) : (
             <Artwork
               src={currentTrack.imageUrl}
               alt={`${currentTrack.albumName} cover`}
-              className="size-11 rounded sm:size-12"
+              className="size-12 border-white/35"
             />
           )}
           <div className="min-w-0 flex-1">
+            <p className="press-label text-white/45">Now pressing</p>
             {currentTrack.spotifyUrl ? (
               <a
                 href={currentTrack.spotifyUrl}
                 target="_blank"
                 rel="noreferrer"
                 title={`${currentTrack.name}${currentTrack.artists ? ` by ${currentTrack.artists}` : ""}`}
-                className="group/link block min-w-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="group/link mt-1 block min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <span className="flex items-center gap-1.5">
-                  <span className="truncate text-sm font-semibold text-white">
+                  <span className="truncate font-display text-base font-bold uppercase leading-none tracking-[0.02em] text-white">
                     {currentTrack.name}
                   </span>
                   <ExternalLink
-                    className="size-3 shrink-0 text-neutral-500 transition group-hover/link:text-neutral-300"
+                    className="size-3 shrink-0 text-white/45 transition group-hover/link:text-primary"
                     aria-hidden="true"
                   />
                 </span>
-                <span className="mt-0.5 block truncate text-xs text-neutral-400">
+                <span className="mt-1 block truncate text-[0.7rem] text-white/60">
                   {currentTrack.artists || currentTrack.albumName}
                 </span>
               </a>
             ) : (
               <>
-                <p className="truncate text-sm font-semibold text-white">{currentTrack.name}</p>
-                <p className="mt-0.5 truncate text-xs text-neutral-400">
+                <p className="mt-1 truncate font-display text-base font-bold uppercase leading-none text-white">
+                  {currentTrack.name}
+                </p>
+                <p className="mt-1 truncate text-[0.7rem] text-white/60">
                   {currentTrack.artists || currentTrack.albumName}
                 </p>
               </>
@@ -194,7 +197,7 @@ export function SpotifyPlayerBar() {
             </PlayerControl>
           </div>
           <div className="flex min-w-0 items-center gap-2">
-            <span className="w-9 shrink-0 text-right text-[0.65rem] tabular-nums text-neutral-500">
+            <span className="w-9 shrink-0 text-right text-[0.65rem] tabular-nums text-white/45">
               {FormatDuration(displayedPosition)}
             </span>
             <input
@@ -217,7 +220,7 @@ export function SpotifyPlayerBar() {
               aria-valuetext={`${FormatDuration(displayedPosition)} of ${FormatDuration(duration)}`}
               className="spotify-player-range min-w-0 flex-1"
             />
-            <span className="w-9 shrink-0 text-[0.65rem] tabular-nums text-neutral-500">
+            <span className="w-9 shrink-0 text-[0.65rem] tabular-nums text-white/45">
               {FormatDuration(duration)}
             </span>
           </div>
@@ -226,9 +229,9 @@ export function SpotifyPlayerBar() {
         <div className="hidden min-w-0 items-center justify-end gap-4 md:flex">
           <div className="flex w-28 items-center gap-2">
             {volume === 0 ? (
-              <VolumeX className="size-4 shrink-0 text-neutral-400" aria-hidden="true" />
+              <VolumeX className="size-4 shrink-0 text-white/60" aria-hidden="true" />
             ) : (
-              <Volume2 className="size-4 shrink-0 text-neutral-400" aria-hidden="true" />
+              <Volume2 className="size-4 shrink-0 text-white/60" aria-hidden="true" />
             )}
             <input
               type="range"
@@ -245,7 +248,7 @@ export function SpotifyPlayerBar() {
         </div>
       </div>
       {status !== "ready" ? (
-        <p className="mt-2 text-center text-[0.65rem] font-medium text-amber-200" role="status">
+        <p className="mt-2 text-center text-[0.68rem] font-semibold text-primary" role="status">
           {STATUS_MESSAGES[status].description}
         </p>
       ) : null}
@@ -260,11 +263,11 @@ function PlayerStatus({ status }: { status: SpotifyPlayerStatus }) {
 
   return (
     <section
-      className="fixed inset-x-3 bottom-[5.9rem] z-50 mx-auto flex max-w-3xl items-center gap-3 rounded-2xl border border-white/10 bg-[#121212]/95 px-4 py-3 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.9)] backdrop-blur-2xl md:bottom-3"
+      className="fixed bottom-[5.35rem] left-3 right-3 z-50 flex items-center gap-3 border border-black border-t-4 border-t-primary bg-secondary px-4 py-3 text-white shadow-[0_16px_34px_-18px_rgba(0,0,0,0.75)] md:bottom-4 md:left-[15.75rem] md:right-4"
       aria-label="Spotify web player status"
       role="status"
     >
-      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/[0.06] text-neutral-300">
+      <span className="grid size-10 shrink-0 place-items-center border border-white/35 bg-primary text-black">
         {connecting ? (
           <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
         ) : (
@@ -272,8 +275,10 @@ function PlayerStatus({ status }: { status: SpotifyPlayerStatus }) {
         )}
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-white">{message.title}</p>
-        <p className="truncate text-xs text-neutral-400">{message.description}</p>
+        <p className="truncate font-display text-base font-bold uppercase leading-none text-white">
+          {message.title}
+        </p>
+        <p className="mt-1 truncate text-xs text-white/60">{message.description}</p>
       </div>
       {status === "reconnect_required" ? (
         <form action="/api/auth/spotify/reconnect" method="post" className="shrink-0">
@@ -287,7 +292,7 @@ function PlayerStatus({ status }: { status: SpotifyPlayerStatus }) {
           type="button"
           size="sm"
           variant="outline"
-          className="shrink-0"
+          className="shrink-0 border-white bg-black text-white hover:bg-white hover:text-black"
           onClick={() => window.location.reload()}
         >
           <RefreshCw className="size-3.5" aria-hidden="true" />
@@ -319,8 +324,9 @@ function PlayerControl({
       disabled={disabled}
       onClick={onClick}
       className={Cn(
-        "grid size-8 place-items-center rounded-full text-neutral-300 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-30",
-        prominent && "size-9 bg-white text-black hover:bg-neutral-200 hover:text-black",
+        "grid size-8 place-items-center border border-white/35 text-white/75 transition hover:border-white hover:text-white focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-30",
+        prominent &&
+          "size-10 border-primary bg-primary text-black hover:border-white hover:bg-white hover:text-black",
       )}
     >
       {children}

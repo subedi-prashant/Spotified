@@ -10,11 +10,15 @@ export function SectionHeading({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex items-end justify-between gap-4">
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold tracking-[-0.02em] sm:text-xl">{title}</h2>
+    <div className="flex items-end justify-between gap-4 border-t border-foreground pt-3">
+      <div>
+        <h2 className="press-quote font-display text-2xl font-black uppercase leading-none tracking-[0.01em] sm:text-3xl">
+          {title}
+        </h2>
         {description ? (
-          <p className="text-xs leading-5 text-muted-foreground sm:text-sm">{description}</p>
+          <p className="mt-2 max-w-2xl text-xs leading-5 text-muted-foreground sm:text-sm">
+            {description}
+          </p>
         ) : null}
       </div>
       {action}

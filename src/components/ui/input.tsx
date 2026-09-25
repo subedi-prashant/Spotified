@@ -11,7 +11,7 @@ export function Input({
     <input
       type={type}
       className={Cn(
-        "h-12 w-full rounded-full border border-input bg-background/60 px-5 text-sm text-foreground shadow-inner outline-none transition placeholder:text-muted-foreground/70 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 disabled:cursor-not-allowed disabled:opacity-50",
+        "h-12 w-full rounded-[1px] border border-input bg-background px-4 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-3 focus:ring-primary/25 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}

@@ -16,10 +16,7 @@ export function Artwork({
   if (src) {
     return (
       <span
-        className={Cn(
-          "relative block shrink-0 overflow-hidden rounded-lg border border-white/8 bg-muted",
-          className,
-        )}
+        className={Cn("relative block shrink-0 border border-foreground/40 bg-white", className)}
       >
         <img src={src} alt={alt} className="size-full object-contain" loading="lazy" />
       </span>
@@ -29,7 +26,7 @@ export function Artwork({
   return (
     <span
       className={Cn(
-        "grid shrink-0 place-items-center overflow-hidden rounded-lg border border-white/8 bg-gradient-to-br from-violet-500/25 via-fuchsia-500/15 to-orange-300/20 text-muted-foreground",
+        "grid shrink-0 place-items-center border border-foreground bg-muted text-muted-foreground",
         className,
       )}
       role="img"
