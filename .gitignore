@@ -13,3 +13,12 @@ coverage/
 .playwright-mcp/
 .DS_Store
 Thumbs.db
+graphify-out/
+.devin/skills/
+.agents/skills/
+skills-lock.json
+.impeccable/
+.codex/
+.gitattributes
+DESIGN.md
+PRODUCT.md

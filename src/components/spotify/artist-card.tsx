@@ -7,28 +7,28 @@ export function ArtistCard({ artist, rank }: { artist: SpotifyArtist; rank?: num
   const spotifyUrl = artist.external_urls.spotify;
   const body = (
     <>
-      <div className="relative">
-        <Artwork
-          src={artist.images[0]?.url}
-          alt={`${artist.name} portrait`}
-          kind="artist"
-          className="aspect-square w-full rounded-2xl"
-        />
+      <Artwork
+        src={artist.images[0]?.url}
+        alt={`${artist.name} portrait`}
+        kind="artist"
+        className="aspect-square w-full"
+      />
+      <span className="flex min-w-0 flex-1 flex-col border-t border-foreground p-3">
         {rank ? (
-          <span className="absolute -bottom-2 left-3 grid size-7 place-items-center rounded-full border border-white/10 bg-neutral-950 text-[0.7rem] font-bold tabular-nums text-white shadow-xl">
-            {rank}
+          <span className="mb-3 w-fit bg-primary px-2 py-1 text-[0.65rem] font-bold tabular-nums">
+            RANK / {String(rank).padStart(2, "0")}
           </span>
         ) : null}
-      </div>
-      <div className="min-w-0 space-y-1 px-1 pt-1">
-        <span className="flex items-center gap-1.5">
-          <span className="truncate text-sm font-semibold text-foreground">{artist.name}</span>
-          {spotifyUrl ? <ExternalLink className="size-3 shrink-0 text-muted-foreground" /> : null}
+        <span className="flex min-w-0 items-center gap-2">
+          <span className="truncate font-display text-lg font-bold uppercase leading-none tracking-[0.02em]">
+            {artist.name}
+          </span>
+          {spotifyUrl ? <ExternalLink className="size-3.5 shrink-0" aria-hidden="true" /> : null}
         </span>
-        <span className="block truncate text-xs text-muted-foreground">
-          {artist.genres.slice(0, 2).join(" · ") || "Artist"}
+        <span className="mt-2 block truncate text-[0.7rem] uppercase tracking-[0.06em] text-muted-foreground">
+          {artist.genres.slice(0, 2).join(" / ") || "Artist"}
         </span>
-      </div>
+      </span>
     </>
   );
 
@@ -38,12 +38,12 @@ export function ArtistCard({ artist, rank }: { artist: SpotifyArtist; rank?: num
         href={spotifyUrl}
         target="_blank"
         rel="noreferrer"
-        className="group flex min-w-0 flex-col gap-3 rounded-[1.25rem] p-2 transition hover:bg-white/[0.045] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="group flex min-w-0 flex-col border border-foreground/45 bg-card transition hover:bg-accent focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring"
       >
         {body}
       </a>
     );
   }
 
-  return <div className="flex min-w-0 flex-col gap-3 rounded-[1.25rem] p-2">{body}</div>;
+  return <div className="flex min-w-0 flex-col border border-foreground/45 bg-card">{body}</div>;
 }

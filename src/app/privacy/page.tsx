@@ -23,7 +23,7 @@ export default async function PrivacyPage({
     >
       {parameters.notice === "consent_required" ? (
         <div
-          className="rounded-2xl border border-amber-300/20 bg-amber-300/5 px-5 py-4 text-amber-100"
+          className="border border-foreground bg-primary px-5 py-4 font-semibold text-foreground"
           role="status"
         >
           Review this notice and the terms before using the Connect Spotify button.

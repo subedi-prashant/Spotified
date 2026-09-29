@@ -11,15 +11,15 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex min-h-48 flex-col items-center justify-center gap-4 rounded-[1.5rem] border border-dashed border-border bg-card/30 px-6 text-center">
-      <span className="grid size-11 place-items-center rounded-2xl bg-secondary text-muted-foreground">
+    <div className="flex min-h-52 flex-col items-center justify-center border border-dashed border-foreground bg-card px-6 py-10 text-center">
+      <span className="grid size-11 place-items-center border border-foreground bg-primary text-primary-foreground">
         <CircleDashed className="size-5" aria-hidden="true" />
       </span>
-      <div className="max-w-md space-y-1.5">
-        <h3 className="text-sm font-semibold">{title}</h3>
-        <p className="text-xs leading-5 text-muted-foreground sm:text-sm">{description}</p>
+      <div className="mt-5 max-w-md">
+        <h3 className="font-display text-xl font-bold uppercase leading-none">{title}</h3>
+        <p className="mt-3 text-xs leading-5 text-muted-foreground sm:text-sm">{description}</p>
       </div>
-      {action}
+      {action ? <div className="mt-5">{action}</div> : null}
     </div>
   );
 }

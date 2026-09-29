@@ -62,7 +62,7 @@ export default async function ExplorePage({
       <section className="space-y-5">
         <SectionHeading title="Artists" description={`Catalog matches for “${query}”`} />
         {artists.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10">
+          <div className="grid grid-cols-2 gap-px bg-foreground sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-10">
             {artists.map((artist) => (
               <ArtistCard key={artist.id} artist={artist} />
             ))}
@@ -101,7 +101,7 @@ export default async function ExplorePage({
 
 function ExploreHeader({ query }: { query: string }) {
   return (
-    <div className="space-y-7 border-b border-border/70 pb-8">
+    <div className="space-y-7">
       <PageHeader
         eyebrow="Manual catalog search"
         title="Explore without an algorithm"

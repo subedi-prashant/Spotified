@@ -34,8 +34,8 @@ export function TrackPlayButton({
       disabled={!isReady || isPending}
       onClick={() => void PlayTrack(trackUri, source)}
       className={Cn(
-        "grid size-8 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[0.045] text-muted-foreground transition hover:border-white/20 hover:bg-white/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-35",
-        isCurrent && "border-primary/30 bg-primary/10 text-primary",
+        "grid size-8 shrink-0 place-items-center border border-foreground bg-background text-foreground transition hover:bg-foreground hover:text-background focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring disabled:pointer-events-none disabled:bg-muted disabled:opacity-45",
+        isCurrent && "bg-primary text-primary-foreground",
         className,
       )}
     >

@@ -48,7 +48,7 @@ export default async function CollectionsPage({
   const collections = result.data;
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-14">
       <PageHeader
         eyebrow="Your Spotify library"
         title="Collections, without the clutter"
@@ -61,7 +61,7 @@ export default async function CollectionsPage({
           description={`${collections.playlists.total} playlists returned by Spotify for this account`}
         />
         {collections.playlists.items.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          <div className="grid grid-cols-2 gap-px bg-foreground sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {collections.playlists.items.map((playlist) => (
               <PlaylistCard key={playlist.id} playlist={playlist} />
             ))}

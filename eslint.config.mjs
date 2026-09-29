@@ -13,5 +13,14 @@ export default defineConfig([
       curly: ["error", "all"],
     },
   },
-  globalIgnores([".next/**", "coverage/**", "drizzle/**"]),
+  globalIgnores([
+    ".next/**",
+    "coverage/**",
+    "drizzle/**",
+    ".devin/**",
+    ".agents/**",
+    ".codex/**",
+    ".impeccable/**",
+    "graphify-out/**",
+  ]),
 ]);

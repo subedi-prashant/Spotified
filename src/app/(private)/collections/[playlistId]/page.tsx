@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { Pagination } from "@/components/pagination";
 import { ProviderError } from "@/components/provider-error";
+import { Artwork } from "@/components/spotify/artwork";
 import { EpisodeRow } from "@/components/spotify/episode-row";
 import { SpotifyPlaybackSourceProvider } from "@/components/spotify/player/playback-source";
 import { TrackRow } from "@/components/spotify/track-row";
@@ -45,13 +46,7 @@ export default async function PlaylistPage({
   if (!result.ok) {
     return (
       <div className="space-y-10">
-        <Link
-          href="/collections"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" aria-hidden="true" />
-          All collections
-        </Link>
+        <BackToCollections />
         <PageHeader
           eyebrow="Playlist contents"
           title="This playlist cannot be opened here"
@@ -67,37 +62,62 @@ export default async function PlaylistPage({
 
   return (
     <div className="space-y-10">
-      <Link
-        href="/collections"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="size-4" aria-hidden="true" />
-        All collections
-      </Link>
-      <PageHeader
-        eyebrow="Owned or collaborative playlist"
-        title={details.playlist.name}
-        description="Spotify only exposes playlist contents here when this account owns or collaborates on the playlist. No playlist identity or genre score is calculated."
-        action={
-          details.playlist.external_urls.spotify ? (
-            <a
-              href={details.playlist.external_urls.spotify}
-              target="_blank"
-              rel="noreferrer"
-              className={Cn(ButtonVariants({ variant: "outline", size: "sm" }), "gap-2")}
-            >
-              Open in Spotify
-              <ExternalLink className="size-3.5" aria-hidden="true" />
-            </a>
-          ) : null
-        }
-      />
+      <BackToCollections />
+
+      <section className="grid border border-foreground bg-card lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.62fr)]">
+        <div className="flex min-w-0 flex-col justify-between bg-secondary p-6 text-white sm:p-8 lg:p-10">
+          <div>
+            <p className="press-label text-white/50">Owned or collaborative playlist</p>
+            <h1 className="mt-6 text-balance font-display text-[clamp(3.4rem,8vw,6rem)] font-black uppercase leading-[0.78] tracking-[-0.03em]">
+              {details.playlist.name}
+            </h1>
+            <p className="mt-7 max-w-2xl text-sm leading-6 text-white/65 sm:text-base">
+              Spotify only exposes playlist contents here when this account owns or collaborates on
+              the playlist. No playlist identity or genre score is calculated.
+            </p>
+            {details.playlist.description ? (
+              <p className="mt-5 border-y border-white/30 py-4 text-xs leading-5 text-white/65">
+                {details.playlist.description}
+              </p>
+            ) : null}
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <span className="bg-primary px-3 py-2 text-xs font-bold tracking-[0.08em] text-black">
+              {details.items.total} ITEMS
+            </span>
+            <span className="border border-white/40 px-3 py-2 text-xs">
+              OWNER / {details.playlist.owner.display_name ?? "Spotify user"}
+            </span>
+            {details.playlist.external_urls.spotify ? (
+              <a
+                href={details.playlist.external_urls.spotify}
+                target="_blank"
+                rel="noreferrer"
+                className={Cn(ButtonVariants({ variant: "outline", size: "sm" }), "ml-auto")}
+              >
+                Open in Spotify
+                <ExternalLink className="size-3.5" aria-hidden="true" />
+              </a>
+            ) : null}
+          </div>
+        </div>
+        <div className="flex items-center justify-center border-t border-foreground bg-background p-4 sm:p-7 lg:border-l lg:border-t-0">
+          <Artwork
+            src={details.playlist.images[0]?.url}
+            alt={`${details.playlist.name} cover`}
+            kind="playlist"
+            className="aspect-square w-full max-w-[36rem]"
+          />
+        </div>
+      </section>
+
       {playableItems.length > 0 ? (
         <SpotifyPlaybackSourceProvider
           source={{ type: "context", contextUri: details.playlist.uri }}
         >
           <Card>
-            <CardContent className="grid gap-x-8 p-3 sm:p-5 lg:grid-cols-2">
+            <CardContent className="grid gap-x-8 p-3 lg:grid-cols-2">
               {playableItems.map((entry, index) => {
                 if (!entry.item) {
                   return null;
@@ -135,6 +155,18 @@ export default async function PlaylistPage({
         total={details.items.total}
       />
     </div>
+  );
+}
+
+function BackToCollections() {
+  return (
+    <Link
+      href="/collections"
+      className="inline-flex items-center gap-2 border-b border-foreground pb-1 font-display text-sm font-bold uppercase tracking-[0.06em] hover:text-primary"
+    >
+      <ArrowLeft className="size-4" aria-hidden="true" />
+      All collections
+    </Link>
   );
 }
 

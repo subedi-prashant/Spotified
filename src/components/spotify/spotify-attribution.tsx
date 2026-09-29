@@ -6,7 +6,7 @@ export function SpotifyAttribution({ className }: { className?: string }) {
   return (
     <span
       className={Cn(
-        "inline-flex items-center gap-1.5 text-[0.7rem] font-medium text-muted-foreground",
+        "inline-flex items-center gap-1.5 border border-foreground bg-secondary px-3 py-2 text-[0.7rem] font-medium text-white",
         className,
       )}
     >

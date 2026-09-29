@@ -23,7 +23,10 @@ export function Pagination({
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   return (
-    <nav className="flex items-center justify-between gap-4" aria-label="Pagination">
+    <nav
+      className="flex items-center justify-between gap-4 border-t border-foreground pt-4"
+      aria-label="Pagination"
+    >
       {offset > 0 ? (
         <Link
           href={BuildPageUrl(path, previousOffset, query)}
@@ -35,7 +38,7 @@ export function Pagination({
       ) : (
         <span />
       )}
-      <span className="text-xs tabular-nums text-muted-foreground">
+      <span className="press-label tabular-nums text-muted-foreground">
         Page {page} of {totalPages}
       </span>
       {nextOffset < total ? (

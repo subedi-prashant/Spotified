@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { AlertCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 
 export default function PrivateError({
   error,
@@ -18,19 +17,24 @@ export default function PrivateError({
   }, [error]);
 
   return (
-    <Card className="mx-auto mt-20 max-w-lg">
-      <CardContent className="flex flex-col items-center gap-5 p-9 text-center">
-        <span className="grid size-12 place-items-center rounded-2xl bg-destructive/10 text-red-300">
+    <section className="mx-auto mt-20 max-w-2xl border border-foreground bg-card">
+      <div className="press-stripes h-8 border-b border-foreground" aria-hidden="true" />
+      <div className="grid gap-6 p-8 text-center sm:grid-cols-[3.5rem_1fr] sm:text-left">
+        <span className="mx-auto grid size-14 place-items-center border border-foreground bg-destructive text-white">
           <AlertCircle className="size-6" aria-hidden="true" />
         </span>
-        <div className="space-y-2">
-          <h1 className="text-xl font-semibold">This view could not be loaded</h1>
-          <p className="text-sm leading-6 text-muted-foreground">
+        <div>
+          <h1 className="font-display text-3xl font-bold uppercase leading-none">
+            This view could not be loaded
+          </h1>
+          <p className="mt-4 text-sm leading-6 text-muted-foreground">
             No partial account data was displayed. You can safely try the request again.
           </p>
+          <Button onClick={reset} className="mt-6">
+            Try again
+          </Button>
         </div>
-        <Button onClick={reset}>Try again</Button>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }
