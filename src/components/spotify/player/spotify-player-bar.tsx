@@ -105,7 +105,7 @@ export function SpotifyPlayerBar() {
 
   return (
     <section
-      className="fixed bottom-[5.35rem] left-3 right-3 z-50 border border-black border-t-4 border-t-primary bg-secondary px-3 py-3 text-white shadow-[0_16px_34px_-18px_rgba(0,0,0,0.75)] sm:px-4 md:bottom-4 md:left-[15.75rem] md:right-4"
+      className="spotify-player-shell fixed bottom-[5.35rem] left-3 right-3 z-50 border border-black border-t-4 border-t-primary bg-secondary px-3 py-3 text-white shadow-[0_16px_34px_-18px_rgba(0,0,0,0.75)] sm:px-4 md:bottom-4 md:left-[15.75rem] md:right-4 classic:inset-x-3 classic:bottom-[5.9rem] classic:mx-auto classic:max-w-7xl classic:border-white/10 classic:border-t classic:bg-[#121212]/95 classic:shadow-[0_24px_80px_-20px_rgba(0,0,0,0.9)] classic:backdrop-blur-2xl classic:md:bottom-3"
       aria-label="Spotify web player"
     >
       <div className="grid items-center gap-3 md:grid-cols-[minmax(0,1fr)_minmax(18rem,1.25fr)_minmax(0,1fr)] md:gap-5">
@@ -263,7 +263,7 @@ function PlayerStatus({ status }: { status: SpotifyPlayerStatus }) {
 
   return (
     <section
-      className="fixed bottom-[5.35rem] left-3 right-3 z-50 flex items-center gap-3 border border-black border-t-4 border-t-primary bg-secondary px-4 py-3 text-white shadow-[0_16px_34px_-18px_rgba(0,0,0,0.75)] md:bottom-4 md:left-[15.75rem] md:right-4"
+      className="spotify-player-shell fixed bottom-[5.35rem] left-3 right-3 z-50 flex items-center gap-3 border border-black border-t-4 border-t-primary bg-secondary px-4 py-3 text-white shadow-[0_16px_34px_-18px_rgba(0,0,0,0.75)] md:bottom-4 md:left-[15.75rem] md:right-4 classic:inset-x-3 classic:bottom-[5.9rem] classic:mx-auto classic:max-w-3xl classic:border-white/10 classic:border-t classic:bg-[#121212]/95 classic:shadow-[0_24px_80px_-20px_rgba(0,0,0,0.9)] classic:backdrop-blur-2xl classic:md:bottom-3"
       aria-label="Spotify web player status"
       role="status"
     >

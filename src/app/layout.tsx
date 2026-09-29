@@ -32,20 +32,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f2ed" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
+  colorScheme: "dark light",
+  themeColor: "#090a0f",
 };
 
-const themeInitScript = `try{var t=localStorage.getItem("spotified-theme");if(t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark")}catch(e){}`;
+const themeInitScript = `try{var r=document.documentElement,v=localStorage.getItem("spotified-visual-theme");if(v==="redesign"){r.classList.replace("classic","redesign");var m=localStorage.getItem("spotified-theme");if(m==="dark"||(m!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches))r.classList.add("dark")}}catch(e){}`;
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${detailFont.variable}`}
+      className={`classic ${displayFont.variable} ${detailFont.variable}`}
       suppressHydrationWarning
     >
       <body>

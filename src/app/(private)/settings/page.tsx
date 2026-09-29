@@ -13,6 +13,7 @@ import {
 import { PageHeader } from "@/components/page-header";
 import { Artwork } from "@/components/spotify/artwork";
 import { SpotifyAttribution } from "@/components/spotify/spotify-attribution";
+import { AppearanceSettings } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -53,6 +54,18 @@ export default async function SettingsPage({
         description="Review the connection, sign out of this browser, or permanently remove the locally stored Spotify credentials."
         action={<SpotifyAttribution />}
       />
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Appearance</CardTitle>
+          <CardDescription>
+            Keep the original Spotified interface or use the new record-press visual system.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <AppearanceSettings />
+        </CardContent>
+      </Card>
 
       {parameters.notice === "confirmation_required" ? (
         <div className="border border-foreground bg-primary px-5 py-4 text-sm" role="status">
